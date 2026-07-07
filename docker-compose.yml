@@ -1,23 +1,35 @@
-version: "3.5"
-
 services:
-  api:
+  be:
     build:
-      context: ../ExamMeApi
-      dockerfile: ../ExamMeLocal/DockerfileApi
+      context: ../exam-me-api
+      dockerfile: ../exam-me-loc/Dockerfile-be
     volumes:
-      - ../ExamMeApi:/usr/app
+      - ../exam-me-api:/usr/app
+    env_file:
+      - .env
+    environment:
+      NODE_ENV: development
+      PORT: 8080
+      DATABASE_TYPE: mongodb
+      DATABASE_URL: mongodb://root:1111@mongo:27017/app?authSource=admin
+      CLIENT_URL: http://localhost:${FE_PORT}
     ports:
-      - "8080:8080"
+      - "${BE_PORT}:8080"
 
-  front:
+  fe:
     build:
-      context: ../ExamMeFront
-      dockerfile: ../ExamMeLocal/DockerfileFront
+      context: ../exam-me-fe
+      dockerfile: ../exam-me-loc/Dockerfile-fe
     volumes:
-      - ../ExamMeFront:/usr/app
+      - ../exam-me-fe:/usr/app
+    env_file:
+      - .env
+    environment:
+      NODE_ENV: development
+      PORT: 8081
+      VITE_API_BASE_URL: http://localhost:${BE_PORT}
     ports:
-      - "8081:8081"
+      - "${FE_PORT}:8081"
 
   mongo:
     image: mongo:latest
@@ -27,8 +39,10 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: 1111
     volumes:
       - mongo-data:/data/db
+    env_file:
+      - .env
     ports:
-      - "27017:27017"
+      - "${MONGO_PORT}:27017"
 
 volumes:
   mongo-data:

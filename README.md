@@ -1,10 +1,23 @@
 # ExamMe - Local dev env for ExamMe
 
-1. git clone git@github.com:oleksandr-andrushchenko/ExamMeApi.git
-2. git clone git@github.com:oleksandr-andrushchenko/ExamMeFront.git
-3. git clone git@github.com:oleksandr-andrushchenko/ExamMeLocal.git
-4. cd ExamLocal
-5. docker compose up -d --build
-6. Light API (node.js): http://localhost:8080/docs
-7. Frontend (react.js): http://localhost:8081 (in progress)
-8. Heavy API (python): http://localhost:8081/docs (in progress)
+## Prerequisites
+
+1. git clone git@github.com:oleksandr-andrushchenko/exam-me-api.git
+2. git clone git@github.com:oleksandr-andrushchenko/exam-me-fe.git
+3. git clone git@github.com:oleksandr-andrushchenko/exam-me-loc.git
+4. cd exam-me-loc
+5. make up
+
+## Available commands
+
+```
+  be                   Open shell in Back-End Docker container
+  down                 Stop local Docker containers
+  fe                   Open shell in Front-End Docker container
+  help                 Show this help
+  logs                 Tail Docker containers logs
+  open                 Show local site URL
+  rebuild              Rebuild and start Docker containers
+  restart              Restart local Docker containers
+  up                   Start local Docker containers
+```
